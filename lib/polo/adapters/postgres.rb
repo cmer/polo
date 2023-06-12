@@ -28,6 +28,7 @@ module Polo
             id = record[:id]
             table_name = record.class.arel_table.name
           end
+          insert.gsub!(/;$/, '')
           insert = insert.gsub(/VALUES \((.+)\)$/m, 'SELECT \\1')
 
           unless [:integer, :float, :decimal].include?(record.class.columns_hash["id"].type)
