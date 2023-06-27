@@ -31,7 +31,7 @@ module Polo
           insert.gsub!(/;$/, '')
           insert = insert.gsub(/VALUES \((.+)\)$/m, 'SELECT \\1')
 
-          unless [:integer, :float, :decimal].include?(record.class.columns_hash["id"].type)
+          if record.class.respond_to?(:columns_hash) && ![:integer, :float, :decimal].include?(record.class.columns_hash["id"].type)
             id = "'#{id}'"
           end
 
